@@ -26,8 +26,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/reload', function (req, res) {
-  res.send('<head><meta http-equiv="refresh" content="6"></head>');
-  res.render('index.html', { 
+  res.render('reload.html', { 
     hostname, uptime
   });
 //  res.redirect(req.get('referer'));
