@@ -25,11 +25,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/reload', function (req, res) {
-  res.send('<head><meta http-equiv="refresh" content="1"></head>');
+//  res.send('<head><meta http-equiv="refresh" content="10"></head>');
   res.render('index.html', { 
     hostname, uptime
   });
-
+  await sleep(2000)
   res.redirect(req.get('referer'));
 });
 
