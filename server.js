@@ -25,11 +25,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/host', function (req, res) {
-  res.send('{
-
-STATIC TEST FROM CODE!
-
-  }');
+  res.send('STATIC TEST FROM CODE!');
 });
 
 // error handling
