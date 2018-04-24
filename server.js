@@ -27,12 +27,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/reload', function (req, res) {
-//  res.send('<head><meta http-equiv="refresh" content="10"></head>');
+  res.send('<head><meta http-equiv="refresh" content="6"></head>');
   res.render('index.html', { 
     hostname, uptime
   });
-  sleep.sleep(2);
-  res.redirect(req.get('referer'));
+//  sleep.sleep(2);
+//  res.redirect(req.get('referer'));
 });
 
 // error handling
