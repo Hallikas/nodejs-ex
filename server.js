@@ -3,9 +3,11 @@ var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
 
+var os = require('os'),
+    sleep = require('sleep');
+
 var hostname = "",
-    uptime = "",
-    os = require('os');
+    uptime = "";
 
 Object.assign=require('object-assign')
 
@@ -29,7 +31,7 @@ app.get('/reload', function (req, res) {
   res.render('index.html', { 
     hostname, uptime
   });
-  await sleep(2000)
+  sleep.sleep(2);
   res.redirect(req.get('referer'));
 });
 
