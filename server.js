@@ -29,7 +29,7 @@ app.get('/reload', function (req, res) {
     hostname, uptime
   });
 
-  response.redirect(request.get('referer'));
+  res.redirect(req.get('referer'));
 });
 
 // error handling
