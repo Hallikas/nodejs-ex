@@ -25,7 +25,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/host', function (req, res) {
-  res.send('{ hostname: -1 }');
+  res.send('{
+
+STATIC TEST FROM CODE!
+
+  }');
 });
 
 // error handling
