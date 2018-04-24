@@ -19,16 +19,8 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 hostname = os.hostname();
 uptime = os.uptime();
 
-/*
 app.get('/', function (req, res) {
   res.render('index.html', { 
-    hostname, uptime
-  });
-});
-*/
-
-app.get('/', function (req, res) {
-  res.render('reload.html', { 
     hostname, uptime
   });
 });
