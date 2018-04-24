@@ -15,17 +15,21 @@ app.use(morgan('combined'))
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
+hostname = os.hostname();
+uptime = os.uptime();
+
 app.get('/', function (req, res) {
-  hostname = os.hostname();
-  uptime = os.uptime();
-    
   res.render('index.html', { 
     hostname, uptime
   });
 });
 
-app.get('/host', function (req, res) {
-  res.send('STATIC TEST FROM CODE!');
+app.get('/reload', function (req, res) {
+  res.render('index.html', { 
+    hostname, uptime
+  });
+
+  response.redirect(request.get('referer'));
 });
 
 // error handling
