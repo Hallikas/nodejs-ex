@@ -7,9 +7,6 @@ var hostname = "",
     uptime = "",
     os = require('os');
 
-hostname = os.hostname();
-uptime = os.uptime();
-    
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -19,11 +16,14 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 app.get('/', function (req, res) {
-  res.render('index.html', { pageCountMessage : null});
+  res.render('index.html', { 
+    hostname = os.hostname(),
+    uptime = os.uptime();
+  });
 });
 
-app.get('/pagecount', function (req, res) {
-  res.send('{ pageCount: -1 }');
+app.get('/host', function (req, res) {
+  res.send('{ hostname: -1 }');
 });
 
 // error handling
