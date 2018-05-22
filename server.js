@@ -6,8 +6,7 @@ const http  = require('http');
 
 var os = require('os');
 
-var hostname = "",
-    uptime = "";
+var hostname = "";
 
 Object.assign=require('object-assign')
 
@@ -18,7 +17,6 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 hostname = os.hostname();
-uptime = os.uptime();
 
 app.get('/', function (req, res) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -26,7 +24,7 @@ app.get('/', function (req, res) {
   res.header('Pragma', 'no-cache');
 
   res.render('index.html', { 
-    hostname, uptime
+    hostname
   });
 
 /*
