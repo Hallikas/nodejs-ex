@@ -29,6 +29,7 @@ app.get('/', function (req, res) {
     hostname, uptime
   });
 
+/*
   http.get('http://whatismyip.fi/', (resp) => {
     let data = '';
 
@@ -43,7 +44,7 @@ app.get('/', function (req, res) {
     });
 
   });
-
+*/
 });
 
 // error handling

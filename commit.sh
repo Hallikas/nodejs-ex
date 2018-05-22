@@ -3,4 +3,4 @@ cd ~/semiex && \
 bash ./switch.sh && \
 git commit -a -m "Sample update" && \
 git push && \
-oc start-build node --wait
+oc start-build test --wait
