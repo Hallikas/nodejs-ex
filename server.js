@@ -2,6 +2,7 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
+const http  = require('http');
 
 var os = require('os');
 
@@ -20,9 +21,29 @@ hostname = os.hostname();
 uptime = os.uptime();
 
 app.get('/', function (req, res) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+
   res.render('index.html', { 
     hostname, uptime
   });
+
+  http.get('http://whatismyip.fi/', (resp) => {
+    let data = '';
+
+    // A chunk of data has been recieved.
+    resp.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    // The whole response has been received. Print out the result.
+    resp.on('end', () => {
+      resconsole.log(data);
+    });
+
+  });
+
 });
 
 // error handling
