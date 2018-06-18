@@ -1,0 +1,43 @@
+#!/bin/bash
+
+NAME=demo-day
+DESC="Demo Day Image Demo"
+ENV=dmz
+APP_NAME=ficar-fe
+IMAGE_NAME=ficar-fe-feature
+IMAGE_SRC_TAG=uat
+IMAGE_DEST_TAG=latest
+
+
+# 1. Ensure we have correct permissions
+# 2. Delete if project exists.
+# 3. Create the project with given node-selector set to desired environment
+# 4. Label namespace
+# 5. Add skopeo serviceaccount permissions to edit project
+# 6. Add skopeo serviceaccount permissions to push images to project
+# 7. Copy application image with skopeo from external image registry to internal registry with given credentials
+#
+
+[ "$(oc whoami)" != "localadmin" ] && echo Please log in as localadmin && exit 1
+
+oc get project ${NAME} && oc delete project ${NAME} && (while true;do oc get project ${NAME} || break;sleep 2;done)
+
+oc adm new-project ${NAME} --display-name="${DESC}" --node-selector="environment=${ENV}"
+oc project ${NAME}
+oc label namespace ${NAME} environment=${ENV}
+
+oc policy add-role-to-user edit system:serviceaccount:ci-cd:skopeo -n ${NAME}
+oc policy add-role-to-user system:image-pusher system:serviceaccount:ci-cd:skopeo -n ${NAME}
+
+skopeo \
+	--tls-verify=false \
+	copy \
+	--src-creds skopeo:eyJhbGciOiJSUzI1NiIs \
+	--dest-creds skopeo:eyJhbGciOiJSUzI1NiIs \
+	docker://docker-registry-default.apps.FROM/labs-uat/${IMAGE_NAME}:${IMAGE_SRC_TAG} \
+	docker://docker-registry.apps.TO/${NAME}/${IMAGE_NAME}:${IMAGE_DEST_TAG}
+
+oc new-app --name ${APP_NAME} -i ${IMAGE_NAME}:${IMAGE_DEST_TAG}
+
+#oc new-app --name=${SRV} ${IMG}~${GIT}
+oc expose svc/${APP_NAME}

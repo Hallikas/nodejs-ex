@@ -1,0 +1,39 @@
+#!/bin/bash
+
+echo "https://ocp.yfe.fi/console/project/semi"
+read
+
+cd ~
+clear
+echo "[s8h-d@svlnxtower11 ~]$ "
+echo "[s8h-d@svlnxtower11 ~]$ "
+echo -n "[s8h-d@svlnxtower11 ~]$ ";read
+echo -n "[s8h-d@svlnxtower11 ~]$ oc get project semi";read
+oc get project semi
+echo -n "[s8h-d@svlnxtower11 ~]$ ";read
+#joe bin/create
+#clear
+#echo "[s8h-d@svlnxtower11 ~]$ "
+#echo "### NOTE, project command is my own script, that was shown"
+echo -n "[s8h-d@svlnxtower11 ~]$ project create";read
+~/bin/project create
+sleep 1
+echo -n "[s8h-d@svlnxtower11 ~]$ watch oc get pods";sleep 2
+watch oc get pods
+echo -n "[s8h-d@svlnxtower11 ~]$ ";read
+echo -n "[s8h-d@svlnxtower11 ~]$ cd semiex/";read
+cd semiex
+echo -n "[s8h-d@svlnxtower11 semiex]$ ls";read
+ls
+echo -n "[s8h-d@svlnxtower11 semiex]$ ";read
+echo -n "[s8h-d@svlnxtower11 semiex]$ edit views/index.html";read
+joe views/index.html
+echo -n "[s8h-d@svlnxtower11 semiex]$ git commit -a -m \"Let's do changes\"";read
+git commit -a -m "Let's do changes"
+echo -n "[s8h-d@svlnxtower11 semiex]$ git push";read
+git push
+echo -n "[s8h-d@svlnxtower11 semiex]$ oc start-build node --wait";read
+oc start-build node --wait
+sleep 1
+echo "[s8h-d@svlnxtower11 semiex]$ oc get build"
+oc get build

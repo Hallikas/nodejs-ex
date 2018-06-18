@@ -1,0 +1,24 @@
+#!/bin/bash
+
+NAME=semi
+DESC="Semi"
+ENV=devtest
+SRV=node
+IMG=nodejs
+GIT=https://github.com/Hallikas/nodejs-ex.git
+
+case "$1" in
+    delete)
+        oc delete project/${NAME}
+        ;;
+    create)
+        oc adm new-project ${NAME} --display-name="${DESC}" --node-selector="environment=${ENV}" && \
+        oc project ${NAME} && \
+        oc label namespace ${NAME} environment=${ENV} && \
+        oc new-app --name=${SRV} ${IMG}~${GIT} && \
+        oc expose service ${SRV}
+        ;;
+    *)
+        echo $"Usage: $0 {create|delete}"
+        exit 2
+esac

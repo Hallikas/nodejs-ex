@@ -1,0 +1,34 @@
+#!/bin/bash
+
+##### VARIABLES
+
+# Project name and description
+NAME=semi
+DESC="Semi's test"
+# Target environment: dev/test, production or dmz
+ENV=devtest
+# Service name
+SRV=node
+# Base image for application
+IMG=nodejs
+# Application sourcecode from version management system (GIT)
+GIT=https://github.com/Hallikas/nodejs-ex.git
+
+
+##### Commands
+
+# Create new project
+oc adm new-project ${NAME} --display-name="${DESC}" --node-selector="environment=${ENV}"
+
+# Select project
+oc project ${NAME}
+
+# Put project to environment (dev/test, prod or dmz)
+oc label namespace ${NAME} environment=${ENV}
+
+# Create new application which name is in SRV variable
+# Use base image (IMG variable) and code is coming from GIT
+oc new-app --name=${SRV} ${IMG}~${GIT}
+
+# Publish service for routers
+oc expose service ${SRV}
